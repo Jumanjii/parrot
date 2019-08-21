@@ -1,5 +1,7 @@
 # Parrot - A simple echo server
 
+![Image of parrot](https://github.com/Jumanjii/parrot/blob/master/logo.jpg)
+
 Parrot is a simple echo server that can be used to store some text and retrieve it.
 
 It's a minimalist personal past.bin that can be used to have a dedicated address when
