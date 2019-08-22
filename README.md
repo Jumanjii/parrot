@@ -1,6 +1,6 @@
 # Parrot - A simple echo server
 
-![Image of parrot](https://github.com/Jumanjii/parrot/blob/master/logo.jpg)
+![Image of parrot](https://github.com/Jumanjii/parrot/blob/master/logo.png)
 
 Parrot is a simple echo server that can be used to store some text and retrieve it.
 
