@@ -1,0 +1,11 @@
+{
+  "name": "Parrot",
+  "description": "A simple echo server",
+  "repository": "https://github.com/Jumanjii/parrot",
+  "logo": "https://github.com/Jumanjii/parrot/blob/master/logo.png",
+  "keywords": ["go", "past.bin", "bulma", "minimalism"],
+  "env": {
+	"PORT": "8080"
+  }
+}
+
