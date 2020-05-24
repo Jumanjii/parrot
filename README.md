@@ -11,7 +11,7 @@ It's a minimalist personal past.bin that can be used to have a dedicated web add
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
 
-Your personnal address will be `<APPName>.herokuapp.com`
+Your personnal address will be `<app-name>.herokuapp.com`
 
 ## Usage
 
