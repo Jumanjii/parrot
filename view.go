@@ -2,77 +2,51 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"io"
 )
 
-// RenderLinkForm render the form allowing to store a link.
-func RenderLinkForm(w io.Writer) {
-	fmt.Fprintf(w, renderView(linkFormView))
+// ViewData hosts data used for rendering.
+type ViewData struct {
+	Link string
 }
 
-// RenderLink generates and return storage webpage.
-func RenderLink(w io.Writer, link string) {
-	v := fmt.Sprintf(linkStoredView, link, link)
-	fmt.Fprintf(w, renderView(v))
+// Renderer is used to render view of the application.
+type Renderer struct {
+	form    *template.Template
+	storage *template.Template
 }
 
-// docHeader defines the head of the HTML document.
-// Inject:
-//     - Bulma CSS framework (from CDN)
-//     - Font Awesome
-const docHeader = `
-<!DOCTYPE html>
-<html>
-	<head>
-	    <meta charset="utf-8">
-	    <meta name="viewport" content="width=device-width, initial-scale=1">
-	    <title>Parrot</title>
-	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.8.0/css/bulma.min.css">
-	    <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
-	</head>
-	<body>
-		<section class="section">
-`
+// NewRenderer returns a new Renderer with all templates loaded.
+func NewRenderer() (*Renderer, error) {
+	form, err := template.ParseFiles("html/page.html", "html/form.html")
+	if err != nil {
+		return nil, fmt.Errorf("could not parse form html files: %w", err)
+	}
 
-// docFooter defines the footer of the HTML document.
-const docFooter = `
-		</section>
-	</body>
-</html>
-`
+	storage, err := template.ParseFiles("html/page.html", "html/storage.html")
+	if err != nil {
+		return nil, fmt.Errorf("could not parse storage html files: %w", err)
+	}
 
-//linkFormView print the form allowing to save a link.
-const linkFormView = `
-	<div class="container">
-	<form method="post">
-	<h1 class="title">
-		Enter your link
-      	</h1>
+	return &Renderer{
+		form:    form,
+		storage: storage,
+	}, nil
+}
 
-	<div class="field">
-	  <div class="control has-icons-left">
-		<span class="icon is-small is-left">
-			<i class="fas fa-at"></i>
-	    	</span>
-	    <input class="input is-primary" type="text" name="link">
-	  </div>
-	</div>
+// Form render the form view into given writer.
+func (r *Renderer) Form(w io.Writer) {
+	err := r.form.ExecuteTemplate(w, "page", nil)
+	if err != nil {
+		panic(err)
+	}
+}
 
-	 <div class="control">
-	   <button class="button is-primary">Save</button>
-	 </div>
-	</form>
-	</div>
-`
-
-// linkStoredView print the link stored.
-const linkStoredView = `
-	<div class="container">
-		<a href="%s">%s</a>
-	</div>
-`
-
-// renderView generates the HTML document containing the content.
-func renderView(content string) string {
-	return docHeader + content + docFooter
+// Storage render the storage view into given writer.
+func (r *Renderer) Storage(w io.Writer, v ViewData) {
+	err := r.storage.ExecuteTemplate(w, "page", v)
+	if err != nil {
+		panic(err)
+	}
 }

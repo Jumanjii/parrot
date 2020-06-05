@@ -1,14 +1,22 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 )
 
 func main() {
-	http.HandleFunc("/store", storeHandler)
-	http.HandleFunc("/storage", storageHandler)
+	renderer, err := NewRenderer()
+	if err != nil {
+		log.Fatal(fmt.Errorf("could not initialize renderer: %w", err))
+		return
+	}
+
+	handler := newHandler(renderer)
+	http.HandleFunc("/store", handler.store)
+	http.HandleFunc("/storage", handler.storage)
 
 	port := os.Getenv("PORT")
 	if port == "" {
