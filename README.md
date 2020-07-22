@@ -5,7 +5,8 @@ Parrot is a simple echo server that can be used to store some text and retrieve 
 
 It's a minimalist personal past.bin that can be used to have a dedicated web address where to put text and get it easily from another device.
 
-(I use it to copy-paste url between my smartphone and my browser)
+(I'm using it to copy-paste url between my smartphone and my browser or between different computers ^_^)
+
 
 ## Easy Setup
 
