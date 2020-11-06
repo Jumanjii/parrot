@@ -9,10 +9,19 @@
 	    <script defer src="https://use.fontawesome.com/releases/v5.12.1/js/all.js"></script>
 	</head>
 	<body>
-		<section class="section">
+		<section class="section is-vcentered">
 		{{template "yield" .}}	
 		</section>
 	</body>
+
+	<style>
+	.section {
+		margin-top: 50vh; /* poussé de la moitié de hauteur de viewport */
+		transform: translateY(-50%); /* tiré de la moitié de sa propre hauteur */
+	}
+
+
+    </style>
 </html>
 
 {{end}}
